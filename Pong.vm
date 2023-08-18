@@ -717,7 +717,7 @@ pop pointer 0
 call Screen.clearScreen 0
 pop temp 0
 push constant 11
-push constant 21
+push constant 22
 call Output.moveCursor 2
 pop temp 0
 push this 9

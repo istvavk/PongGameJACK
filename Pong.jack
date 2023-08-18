@@ -183,7 +183,7 @@ class Pong {
 
   method void endScreen(){
     do Screen.clearScreen();
-    do Output.moveCursor(11,21);
+    do Output.moveCursor(11,22);
     do Output.printString(endText);
     return;
   }
