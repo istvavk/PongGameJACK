@@ -421,7 +421,7 @@ call Pong.movePlayer 2
 pop temp 0
 label IF_FALSE3
 push local 1
-call Pong.moveBotMedium 1
+call Pong.moveBot 1
 pop temp 0
 push constant 100
 pop local 3

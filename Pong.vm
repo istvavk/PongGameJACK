@@ -252,7 +252,7 @@ label IF_FALSE2
 label IF_END0
 push constant 0
 return
-function Pong.moveBotMedium 1
+function Pong.moveBot 1
 push argument 0
 pop pointer 0
 push this 5

@@ -80,7 +80,7 @@ class Pong {
     return;
   }
 
-  method void moveBotMedium(){
+  method void moveBot(){
     var int d;
     if((ballCord_i > (botCord_i + 10)) & (ballCord_i < (botCord_i + 40))){
       return;

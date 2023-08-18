@@ -51,7 +51,7 @@ class Main {
                             do igra.movePlayer(1);
                         }
 
-                        do igra.moveBotMedium();
+                        do igra.moveBot();
 
                         let tick = 100;
                     }
