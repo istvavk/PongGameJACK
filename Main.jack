@@ -1,0 +1,70 @@
+class Main {
+    function void main() {
+        var bool done;
+        var Pong igra;
+        var int key;
+        var int tick;
+        var int ballTick;
+        
+        let done = false;
+        do Screen.setColor(true);
+          do Screen.drawRectangle( 0 , 0 ,4, 255);
+          do Screen.setColor(true);
+          do Screen.drawRectangle(  0, 0 , 511, 4 );
+          do Screen.setColor(true);
+          do Screen.drawRectangle( 507 , 0 , 511, 255);
+          do Screen.setColor(true);
+          do Screen.drawRectangle(  0, 251 , 511, 255 );
+
+	     do Output.moveCursor(12 , 27);
+          do Output.printString(".KRETANJE.");
+          do Output.moveCursor(14, 19);
+          do Output.printString("Lijeva strijelica za lijevo");
+          do Output.moveCursor(16, 20);
+          do Output.printString("Desna strijelica za desno");
+     
+          do Output.moveCursor(20 , 18) ;
+          do Output.printString(" Start Game  -  Press Space");
+          do Output.moveCursor(2 , 43) ;
+          do Output.printString(" Antonio Istvanovic ");
+          do Output.moveCursor(8 , 23) ;
+          do Output.printString(" <== Pong Game ==> " );
+          do Screen.setColor( true);
+          do Screen.drawRectangle( 175 , 104 , 332 , 105);
+        
+        while(~done) {
+            let key = Keyboard.keyPressed();
+            if(key = 32) {  // Space bar pressed
+                do Screen.clearScreen();
+                let igra = Pong.new();
+                do igra.drawInfo();
+                do igra.drawBall();
+                do igra.drawPlayer();
+                do igra.drawBot();
+                while (~done) {
+                    if (tick = 0) {
+                        let key = Keyboard.keyPressed();
+                        if (key = 130) {
+                            do igra.movePlayer(-1);
+                        }
+                        if (key = 132) {
+                            do igra.movePlayer(1);
+                        }
+
+                        do igra.moveBotMedium();
+
+                        let tick = 100;
+                    }
+                    if (ballTick = 0) {
+                        let done = igra.moveBall();
+                        let ballTick = 125;
+                    }
+                    let tick = tick - 1;
+                    let ballTick = ballTick - 1;
+                }
+                do igra.endScreen();
+            }
+        }
+        return;
+    }
+}

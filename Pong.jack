@@ -1,0 +1,190 @@
+class Pong {
+  field int bounces;
+  field int botCord_i, botCord_j;
+  field int playerCord_i, playerCord_j;
+  field int ballCord_i, ballCord_j;
+  field int ballVec_i, ballVec_j;
+  field String endText;
+
+  constructor Pong new(){
+    let bounces = 0;
+    let botCord_i = 1;
+    let botCord_j = 1;
+    let playerCord_i = 1;
+    let playerCord_j = 235;
+    let ballCord_i = 3;
+    let ballCord_j = 120;
+    let ballVec_i = 1;
+    let ballVec_j = 1;
+    return this;
+  }
+
+  method void drawInfo(){
+    do Output.moveCursor(22, 0);
+    do Output.printString("Odbijanja: ");
+    do Output.moveCursor(22, 11);
+    do Output.printInt(bounces);
+    return;
+  }
+
+  method void redrawBounces(){
+    do Screen.setColor(0);
+    do Screen.drawRectangle(80, 241, 100, 254);
+    do Output.moveCursor(22, 11);
+    do Output.printInt(bounces);
+    return;
+  }
+
+  method void drawBall(){
+    do Screen.setColor(1);
+    do Screen.drawRectangle(ballCord_i, ballCord_j, ballCord_i+4, ballCord_j+4);
+    return;
+  }
+  
+  method void eraseBall(){
+    do Screen.setColor(0);
+    do Screen.drawRectangle(ballCord_i, ballCord_j, ballCord_i+4, ballCord_j+4);
+    return;
+  }
+
+  method void drawPlayer(){
+    do Screen.setColor(1);
+    do Screen.drawRectangle(playerCord_i, playerCord_j, playerCord_i+50, playerCord_j+4);
+    return;
+  }
+
+  method void drawBot(){
+    do Screen.setColor(1);
+    do Screen.drawRectangle(botCord_i, botCord_j, botCord_i+50, botCord_j+4);
+    return;
+  }
+
+  method void movePlayer(int d){
+    if(d = -1){
+      if(playerCord_i - 1 > 0){
+        do Screen.setColor(0);
+        do Screen.drawRectangle(playerCord_i+50, playerCord_j, playerCord_i+50, playerCord_j+4);
+        let playerCord_i = playerCord_i - 1;
+        do Screen.setColor(1);
+        do Screen.drawRectangle(playerCord_i, playerCord_j, playerCord_i, playerCord_j+4);
+      }
+    } else {
+      if(playerCord_i + 1 + 50 < 511){
+        do Screen.setColor(0);
+        do Screen.drawRectangle(playerCord_i, playerCord_j, playerCord_i, playerCord_j+4);
+        let playerCord_i = playerCord_i + 1;
+        do Screen.setColor(1);
+        do Screen.drawRectangle(playerCord_i+50, playerCord_j, playerCord_i+50, playerCord_j+4);
+      }
+    }
+    return;
+  }
+
+  method void moveBotMedium(){
+    var int d;
+    if((ballCord_i > (botCord_i + 10)) & (ballCord_i < (botCord_i + 40))){
+      return;
+    }
+    if(ballCord_i - 27 < botCord_i){
+      let d = -1;
+    } else {
+      let d = 1;
+    }
+    if(d = -1){
+      if(botCord_i - 1 > 0){
+        do Screen.setColor(0);
+        do Screen.drawRectangle(botCord_i+50, botCord_j, botCord_i+50, botCord_j+4);
+        let botCord_i = botCord_i - 1;
+        do Screen.setColor(1);
+        do Screen.drawRectangle(botCord_i, botCord_j, botCord_i, botCord_j+4);
+      }
+    } else {
+      if(botCord_i + 1 + 50 < 511){
+        do Screen.setColor(0);
+        do Screen.drawRectangle(botCord_i, botCord_j, botCord_i, botCord_j+4);
+        let botCord_i = botCord_i + 1;
+        do Screen.setColor(1);
+        do Screen.drawRectangle(botCord_i+50, botCord_j, botCord_i+50, botCord_j+4);
+      }
+    }
+    return;
+  }
+
+  method bool moveBall(){
+    do eraseBall();
+    if(ballVec_j < 0){
+      if(ballVec_j + ballCord_j - 1 - 4 < botCord_j){
+        if((botCord_i < ballCord_i) & (botCord_i + 50 > ballCord_i)){
+          let ballVec_j = 1;
+          let bounces = bounces + 1;
+          do redrawBounces();
+          if(ballCord_i - botCord_i < 10){
+            let ballVec_i = -2;
+          } else {
+            if(ballCord_i - botCord_i < 20){
+              let ballVec_i = -1;
+            } else {
+              if(ballCord_i - botCord_i < 30){
+                let ballVec_i = 0;
+              } else {
+                if(ballCord_i - botCord_i < 40){
+                  let ballVec_i = 1;
+                } else {
+                  let ballVec_i = 2;
+                }
+              }
+            }
+          }
+        } else {
+          let endText = "GAME OVER, YOU WIN";
+          return true;
+        }
+      }
+    } else {
+      if(ballVec_j + ballCord_j + 4 + 1 > playerCord_j){
+        if((playerCord_i < ballCord_i) & (playerCord_i + 50 > ballCord_i)){
+          let ballVec_j = -1;
+          let bounces = bounces + 1;
+          do redrawBounces();
+          if(ballCord_i - playerCord_i < 10){
+            let ballVec_i = -2;
+          } else {
+            if(ballCord_i - playerCord_i < 20){
+              let ballVec_i = -1;
+            } else {
+              if(ballCord_i - playerCord_i < 30){
+                let ballVec_i = 0;
+              } else {
+                if(ballCord_i - playerCord_i < 40){
+                  let ballVec_i = 1;
+                } else {
+                  let ballVec_i = 2;
+                }
+              }
+            }
+          }
+        } else {
+          let endText = "GAME OVER, YOU LOSE";
+          return true;
+        }
+      }
+    }
+    if(ballCord_i + ballVec_i < 1){
+      let ballVec_i = ballVec_i * -1;
+    }
+    if(ballCord_i + ballVec_i + 4 > 510){
+      let ballVec_i = ballVec_i * -1;
+    }
+    let ballCord_i = ballCord_i + ballVec_i;
+    let ballCord_j = ballCord_j + ballVec_j;
+    do drawBall();
+    return false;
+  }
+
+  method void endScreen(){
+    do Screen.clearScreen();
+    do Output.moveCursor(11,21);
+    do Output.printString(endText);
+    return;
+  }
+}
