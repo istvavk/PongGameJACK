@@ -16,7 +16,7 @@ class Main {
         do Screen.setColor(true);
         do Screen.drawRectangle(  0, 251 , 511, 255 );
 
-	    do Output.moveCursor(12 , 27);
+	do Output.moveCursor(12 , 27);
         do Output.printString(".KRETANJE.");
         do Output.moveCursor(14, 19);
         do Output.printString("Lijeva strijelica za lijevo");
