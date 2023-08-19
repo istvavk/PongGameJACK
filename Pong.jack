@@ -20,9 +20,9 @@ class Pong {
   }
 
   method void drawInfo(){
-    do Output.moveCursor(22, 0);
-    do Output.printString("Odbijanja: ");
-    do Output.moveCursor(22, 11);
+    do Output.moveCursor(22, 50);
+    do Output.printString("ODBIJANJA: ");
+    do Output.moveCursor(22, 61);
     do Output.printInt(bounces);
     return;
   }
@@ -30,7 +30,7 @@ class Pong {
   method void redrawBounces(){
     do Screen.setColor(0);
     do Screen.drawRectangle(80, 241, 100, 254);
-    do Output.moveCursor(22, 11);
+    do Output.moveCursor(22, 61);
     do Output.printInt(bounces);
     return;
   }
